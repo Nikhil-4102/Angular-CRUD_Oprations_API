@@ -1,14 +1,18 @@
 <h1>API call Service - CRUD operations</h1>
 
 <hr>
-<form  #userForm="ngForm" (ngSubmit)="addUser(userForm.value)">
-  <input type="text" placeholder="Enter new name"  name="name" required ngModel>
+<form  #userForm="ngForm" (ngSubmit)="addUser(userForm.value)" >
+  <input type="text" placeholder="Enter new name"  name="name"  [ngModel]="selectedUser?.name">
   <br><br>
-  <input type="text" placeholder="Enter new email"  name="email" required ngModel>
+  <input type="text" placeholder="Enter new email"  name="email" required [ngModel]="selectedUser?.email">
   <br><br>
-  <input type="text" placeholder="Enter age"  name="age" required ngModel>
+  <input type="text" placeholder="Enter age"  name="age" required [ngModel]="selectedUser?.age">
   <br><br>
-  <button>Add user</button>
+  @if(!selectedUser){
+     <button >Add User</button>
+  }@else{
+   <button >Update User</button>
+  }
 
 </form>
 <hr>
@@ -17,9 +21,17 @@
 @for(user of users ; track  user.id){
 
   <ul>
-    <li> <b>ID: </b> {{user.id}}</li>
-    <li> <b>Name: </b> {{user.name}}</li>
-    <li> <b>Age: </b> {{user.age}}</li>
-    <li> <b>Email: </b> {{user.email}}</li>
+   <div class="main">
+    <div>
+      <li> <b>ID: </b> {{user.id}}</li>
+      <li> <b>Name: </b> {{user.name}}</li>
+      <li> <b>Age: </b> {{user.age}}</li>
+      <li> <b>Email: </b> {{user.email}}</li>
+     </div>
+      <div class="btns">
+        <li><button (click)="deleteUser(user.id)">Delete</button></li>
+      <li><button (click)="selectUser(user.id)">Update User</button></li>
+      </div>
+   </div>
   </ul>
 }
